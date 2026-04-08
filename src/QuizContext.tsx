@@ -66,7 +66,11 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const path = 'results';
       try {
         await addDoc(collection(db, path), {
-          ...participant,
+          name: participant.name,
+          rollNumber: participant.rollNumber,
+          branch: participant.branch,
+          course: participant.course,
+          phoneNumber: participant.phoneNumber,
           score,
           totalQuestions: questions.length,
           timeTaken,

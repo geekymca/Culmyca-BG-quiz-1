@@ -9,6 +9,7 @@ export interface Participant {
   name: string;
   rollNumber: string;
   branch: string;
+  course: string;
   phoneNumber: string;
 }
 

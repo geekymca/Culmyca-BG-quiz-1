@@ -21,6 +21,9 @@ export const LandingPage: React.FC = () => {
         <p className="text-xl text-geeta-gold italic">
           "Set thy heart upon thy work, but never on its reward."
         </p>
+        <p className="mt-4 text-gray-400 font-medium tracking-widest uppercase text-sm">
+          Co-powered by Culmyca event
+        </p>
       </motion.div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
@@ -28,8 +31,8 @@ export const LandingPage: React.FC = () => {
           <div className="w-16 h-16 bg-geeta-orange/20 rounded-full flex items-center justify-center mb-4">
             <BookOpen className="text-geeta-orange w-8 h-8" />
           </div>
-          <h3 className="text-xl font-bold mb-2">150+ Questions</h3>
-          <p className="text-sm text-gray-400">Deep dive into the teachings of the Bhagavad Geeta.</p>
+          <h3 className="text-xl font-bold mb-2">20 Questions</h3>
+          <p className="text-sm text-gray-400">Deep dive into the teachings of the Bhagavad Gita.</p>
         </GlassCard>
 
         <GlassCard className="p-8 flex flex-col items-center text-center border-geeta-gold/30" delay={0.4}>

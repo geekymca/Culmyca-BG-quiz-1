@@ -61,7 +61,7 @@ export const ResultPage: React.FC = () => {
             onClick={handleRestart}
             className="flex items-center justify-center gap-2 px-8 py-4 bg-geeta-gold text-black font-bold rounded-xl transition-all"
           >
-            <RotateCcw size={20} /> Try Again
+            <RotateCcw size={20} /> Back to Home
           </motion.button>
           
           <motion.button

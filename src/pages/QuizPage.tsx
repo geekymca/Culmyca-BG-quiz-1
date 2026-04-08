@@ -12,7 +12,7 @@ export const QuizPage: React.FC = () => {
     participant, isFinished 
   } = useQuiz();
   
-  const [timeLeft, setTimeLeft] = useState(10);
+  const [timeLeft, setTimeLeft] = useState(15);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -36,7 +36,7 @@ export const QuizPage: React.FC = () => {
   }, [currentQuestionIndex]);
 
   const startTimer = () => {
-    setTimeLeft(10);
+    setTimeLeft(15);
     setIsAnswered(false);
     setSelectedOption(null);
     if (timerRef.current) clearInterval(timerRef.current);
@@ -60,7 +60,7 @@ export const QuizPage: React.FC = () => {
     stopTimer();
     setIsAnswered(true);
     setTimeout(() => {
-      submitAnswer('', 10);
+      submitAnswer('', 15);
     }, 1000);
   };
 
@@ -72,7 +72,7 @@ export const QuizPage: React.FC = () => {
     setIsAnswered(true);
     
     setTimeout(() => {
-      submitAnswer(option, 10 - timeLeft);
+      submitAnswer(option, 15 - timeLeft);
     }, 1500);
   };
 

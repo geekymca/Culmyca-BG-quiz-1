@@ -131,7 +131,7 @@ export const LeaderboardPage: React.FC = () => {
                   <td className="p-4">
                     <div>
                       <p className="font-bold">{result.name}</p>
-                      <p className="text-xs text-gray-400">{result.branch}</p>
+                      <p className="text-xs text-gray-400">{result.course} - {result.branch}</p>
                     </div>
                   </td>
                   <td className="p-4 text-gray-300">{result.rollNumber}</td>

@@ -18,7 +18,7 @@ export const LogoHeader: React.FC = () => {
       
       <div className="text-center">
         <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-geeta-gold via-geeta-orange to-geeta-saffron bg-clip-text text-transparent">
-          Bhagavad Geeta Quiz
+          Bhagavad Gita Quiz
         </h1>
       </div>
 

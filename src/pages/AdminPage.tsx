@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { GlassCard } from '../components/GlassCard';
 import { db } from '../lib/firebase';
 import { collection, query, orderBy, onSnapshot, doc, deleteDoc } from 'firebase/firestore';
@@ -48,13 +48,20 @@ export const AdminPage: React.FC = () => {
     }
   };
 
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
   const handleDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this participant?')) {
-      try {
-        await deleteDoc(doc(db, 'results', id));
-      } catch (error) {
-        handleFirestoreError(error, OperationType.DELETE, `results/${id}`);
-      }
+    setDeletingId(id);
+  };
+
+  const confirmDelete = async () => {
+    if (!deletingId) return;
+    try {
+      await deleteDoc(doc(db, 'results', deletingId));
+      setDeletingId(null);
+    } catch (error) {
+      handleFirestoreError(error, OperationType.DELETE, `results/${deletingId}`);
+      setDeletingId(null);
     }
   };
 
@@ -176,6 +183,42 @@ export const AdminPage: React.FC = () => {
           </table>
         </div>
       </GlassCard>
+
+      <AnimatePresence>
+        {deletingId && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="w-full max-w-sm"
+            >
+              <GlassCard className="p-8 text-center">
+                <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Trash2 className="text-red-400 w-8 h-8" />
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-white">Delete Participant?</h3>
+                <p className="text-gray-400 mb-8">This action cannot be undone. Are you sure you want to remove this result?</p>
+                
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => setDeletingId(null)}
+                    className="flex-1 py-3 bg-white/10 text-white font-bold rounded-lg hover:bg-white/20 transition-all"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={confirmDelete}
+                    className="flex-1 py-3 bg-red-500 text-white font-bold rounded-lg hover:bg-red-600 transition-all"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </GlassCard>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

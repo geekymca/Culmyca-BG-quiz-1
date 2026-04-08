@@ -42,7 +42,7 @@ export default function App() {
                 <Route path="/quiz" element={<QuizPage />} />
                 <Route path="/result" element={<ResultPage />} />
                 <Route path="/leaderboard" element={<LeaderboardPage />} />
-                <Route path="/admin-portal-108" element={<AdminPage />} />
+                <Route path="/admin" element={<AdminPage />} />
               </Routes>
             </main>
 

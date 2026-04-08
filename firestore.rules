@@ -1,0 +1,36 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isValidResult(data) {
+      return data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
+             data.rollNumber is string && data.rollNumber.size() > 0 && data.rollNumber.size() < 50 &&
+             data.branch is string && data.branch.size() > 0 && data.branch.size() < 100 &&
+             data.phoneNumber is string && data.phoneNumber.size() >= 10 && data.phoneNumber.size() <= 15 &&
+             data.score is int && data.score >= 0 && data.score <= 20 &&
+             data.timeTaken is int && data.timeTaken >= 0 && data.timeTaken <= 300; // max 5 mins for 20 questions
+    }
+
+    // Results collection
+    match /results/{resultId} {
+      // Anyone can create a result (to allow quiz submission)
+      // In a real app, you might want to restrict this to authenticated users
+      // but for a public quiz, we allow it with validation.
+      allow create: if isValidResult(request.resource.data);
+      
+      // Only authenticated admins (or anyone with the password in our app logic) 
+      // can read the results for the leaderboard.
+      // For simplicity in this demo, we allow read if the request is valid.
+      // In production, you'd use custom claims or a specific admin UID.
+      allow read: if true; 
+      
+      allow update, delete: if false;
+    }
+  }
+}

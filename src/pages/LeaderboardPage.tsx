@@ -21,7 +21,7 @@ export const LeaderboardPage: React.FC = () => {
         collection(db, 'results'),
         orderBy('score', 'desc'),
         orderBy('timeTaken', 'asc'),
-        limit(50)
+        limit(1000)
       );
 
       const path = 'results';
@@ -39,7 +39,7 @@ export const LeaderboardPage: React.FC = () => {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     // Simple password protection as requested
-    if (password === 'Geeta2024') {
+    if (password === '108') {
       setIsAdmin(true);
       setError('');
     } else {

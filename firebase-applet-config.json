@@ -1,10 +1,9 @@
 {
-  "projectId": "gen-lang-client-0160219015",
-  "appId": "1:760888451256:web:8f712e0468ea0ca7f9944d",
-  "apiKey": "AIzaSyCNH3tw3_QAg6g_RlYSAivNxEL5qJheqrQ",
-  "authDomain": "gen-lang-client-0160219015.firebaseapp.com",
-  "firestoreDatabaseId": "ai-studio-b7467180-0c39-4bdf-b7f7-118e31dd3039",
-  "storageBucket": "gen-lang-client-0160219015.firebasestorage.app",
-  "messagingSenderId": "760888451256",
-  "measurementId": ""
+  "apiKey": "AIzaSyAwqtCm8-RpwlQbUMvnAGOt6zJZ4ofxsPM",
+  "authDomain": "quiz-ethiccraft.firebaseapp.com",
+  "projectId": "quiz-ethiccraft",
+  "storageBucket": "quiz-ethiccraft.firebasestorage.app",
+  "messagingSenderId": "490241444294",
+  "appId": "1:490241444294:web:718bcfaace319f06eecac7",
+  "measurementId": "G-SHE8MT1993"
 }

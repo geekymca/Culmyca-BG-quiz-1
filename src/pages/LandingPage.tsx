@@ -49,14 +49,25 @@ export const LandingPage: React.FC = () => {
         </GlassCard>
       </div>
 
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => navigate('/register')}
-        className="mt-12 px-12 py-4 bg-gradient-to-r from-geeta-orange to-geeta-saffron rounded-full font-bold text-xl shadow-lg shadow-geeta-orange/20 hover:shadow-geeta-orange/40 transition-all"
-      >
-        Start Journey
-      </motion.button>
+      <div className="mt-12 flex flex-col sm:flex-row gap-4">
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate('/register')}
+          className="px-12 py-4 bg-gradient-to-r from-geeta-orange to-geeta-saffron rounded-full font-bold text-xl shadow-lg shadow-geeta-orange/20 hover:shadow-geeta-orange/40 transition-all"
+        >
+          Start Journey
+        </motion.button>
+
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate('/leaderboard')}
+          className="px-12 py-4 bg-white/10 border border-white/20 rounded-full font-bold text-xl hover:bg-white/20 transition-all"
+        >
+          Leaderboard
+        </motion.button>
+      </div>
       
       <div className="mt-8 relative w-full max-w-4xl h-64 rounded-2xl overflow-hidden shadow-2xl border border-white/10">
         <img 

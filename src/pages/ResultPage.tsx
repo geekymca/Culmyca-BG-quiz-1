@@ -20,7 +20,8 @@ export const ResultPage: React.FC = () => {
       setCountdown(prev => {
         if (prev <= 1) {
           clearInterval(timer);
-          window.location.href = 'https://www.instagram.com/ethiccraft_ymca/';
+          window.open('https://www.instagram.com/ethiccraft_ymca/', '_blank');
+          navigate('/');
           return 0;
         }
         return prev - 1;

@@ -104,7 +104,12 @@ export const AdminPage: React.FC = () => {
   return (
     <div className="flex flex-col items-center min-h-[80vh] px-4 py-8">
       <div className="w-full max-w-6xl flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-        <h2 className="text-4xl font-bold text-red-400">Admin Portal</h2>
+        <div className="flex items-center gap-4">
+          <h2 className="text-4xl font-bold text-red-400">Admin Portal</h2>
+          <div className="bg-red-500/20 text-red-400 px-4 py-1 rounded-full font-bold border border-red-500/30">
+            Total: {results.length}
+          </div>
+        </div>
         
         <div className="relative w-full md:w-96">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />

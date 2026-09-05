@@ -1,5 +1,6 @@
 {
-  "name": "EthicCraft Gita Quiz",
-  "description": "A spiritual and educational quiz application powered by EthicCraft Club and JC Bose University (YMCA). Co-powered by Culmyca event.",
-  "requestFramePermissions": []
+  "name": "Shri Krishan Janamotsav",
+  "description": "Shri Krishan Janamotsav quiz application powered by EthicCraft Club and JC Bose University (YMCA). Co-powered by EthicCraft Ymca.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

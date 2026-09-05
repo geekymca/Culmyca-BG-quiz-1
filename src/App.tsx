@@ -48,7 +48,7 @@ export default function App() {
 
             <footer className="py-8 text-center text-gray-500 text-sm">
               <p>© 2024 EthicCraft Club & JC Bose University (YMCA). All Rights Reserved.</p>
-              <p className="mt-2 text-xs opacity-50">Co-powered by Culmyca event</p>
+              <p className="mt-2 text-xs opacity-50">Co-powered by EthicCraft Ymca</p>
               <p className="mt-2 italic">"Wisdom is the purifier of the soul."</p>
             </footer>
           </div>

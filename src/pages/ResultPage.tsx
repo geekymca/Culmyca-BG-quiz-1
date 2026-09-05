@@ -21,7 +21,6 @@ export const ResultPage: React.FC = () => {
         if (prev <= 1) {
           clearInterval(timer);
           window.open('https://www.instagram.com/ethiccraft_ymca/', '_blank');
-          navigate('/');
           return 0;
         }
         return prev - 1;
@@ -32,10 +31,10 @@ export const ResultPage: React.FC = () => {
   }, []);
 
   const getMessage = () => {
-    if (percentage === 100) return "Divine Excellence! You have mastered the Gita's wisdom.";
-    if (percentage >= 80) return "Outstanding! Your understanding is profound.";
-    if (percentage >= 60) return "Good effort! Continue your spiritual journey.";
-    return "Keep learning! The wisdom of the Gita is eternal.";
+    if (percentage === 100) return "Divine Excellence! You have mastered the wisdom of Shri Krishna and the Gita.";
+    if (percentage >= 80) return "Outstanding! Your understanding of Lord Krishna's teachings is profound.";
+    if (percentage >= 60) return "Good effort! Continue your spiritual journey of wisdom.";
+    return "Keep learning! The pastimes and wisdom of Lord Krishna are eternal.";
   };
 
   const handleRestart = () => {

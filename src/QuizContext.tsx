@@ -5,6 +5,11 @@ import { db } from './lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { handleFirestoreError, OperationType } from './lib/errorHandlers';
 
+export const RESULTS_COLLECTION = 'results';
+export const CURRENT_QUIZ_ID = 'krishna_janamotsav';
+export const CURRENT_QUIZ_COLLECTION = RESULTS_COLLECTION;
+export const LEGACY_QUIZ_COLLECTION = RESULTS_COLLECTION;
+
 interface QuizContextType {
   participant: Participant | null;
   setParticipant: (p: Participant) => void;
@@ -63,7 +68,7 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const finishQuiz = async () => {
     setIsFinished(true);
     if (participant) {
-      const path = 'results';
+      const path = CURRENT_QUIZ_COLLECTION;
       try {
         await addDoc(collection(db, path), {
           name: participant.name,
@@ -75,6 +80,7 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
           totalQuestions: questions.length,
           timeTaken,
           timestamp: serverTimestamp(),
+          quizId: CURRENT_QUIZ_ID,
         });
       } catch (error) {
         handleFirestoreError(error, OperationType.CREATE, path);

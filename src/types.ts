@@ -11,6 +11,8 @@ export interface Participant {
   branch: string;
   course: string;
   phoneNumber: string;
+  isGeneral?: boolean;
+  audienceType?: 'student' | 'general';
 }
 
 export interface QuizResult extends Participant {
@@ -18,4 +20,5 @@ export interface QuizResult extends Participant {
   totalQuestions: number;
   timeTaken: number; // in seconds
   timestamp: any;
+  quizId?: string;
 }

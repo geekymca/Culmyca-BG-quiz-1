@@ -15,14 +15,14 @@ export const LandingPage: React.FC = () => {
         transition={{ duration: 0.8 }}
         className="text-center mb-12"
       >
-        <h1 className="text-5xl sm:text-7xl font-bold mb-4 bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent">
-          Divine Wisdom Awaits
+        <h1 className="text-5xl sm:text-7xl font-bold mb-4 bg-gradient-to-b from-white via-geeta-gold to-geeta-orange bg-clip-text text-transparent">
+          Shri Krishan Janamotsav
         </h1>
         <p className="text-xl text-geeta-gold italic">
           "Set thy heart upon thy work, but never on its reward."
         </p>
-        <p className="mt-4 text-gray-400 font-medium tracking-widest uppercase text-sm">
-          Co-powered by Culmyca event
+        <p className="mt-4 text-gray-300 font-medium tracking-widest uppercase text-sm">
+          Co-powered by EthicCraft Ymca
         </p>
       </motion.div>
 

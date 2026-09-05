@@ -20,7 +20,11 @@
   "firestore": {
     "/results/{resultId}": {
       "schema": "QuizResult",
-      "description": "Collection of all quiz attempts."
+      "description": "Collection of legacy quiz attempts."
+    },
+    "/krishna_janamotsav_results/{resultId}": {
+      "schema": "QuizResult",
+      "description": "Collection of Shri Krishan Janamotsav quiz attempts."
     }
   }
 }

@@ -4,9 +4,10 @@ import { GlassCard } from '../components/GlassCard';
 import { db } from '../lib/firebase';
 import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore';
 import { QuizResult } from '../types';
-import { Trophy, Medal, Award, Lock, ArrowLeft } from 'lucide-react';
+import { Trophy, Medal, Award, Lock, ArrowLeft, Sparkles, History } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { handleFirestoreError, OperationType } from '../lib/errorHandlers';
+import { RESULTS_COLLECTION, CURRENT_QUIZ_ID } from '../QuizContext';
 
 export const LeaderboardPage: React.FC = () => {
   const navigate = useNavigate();
@@ -14,31 +15,41 @@ export const LeaderboardPage: React.FC = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [activeTab, setActiveTab] = useState<'krishna' | 'legacy'>('krishna');
 
   useEffect(() => {
     if (isAdmin) {
       const q = query(
-        collection(db, 'results'),
+        collection(db, RESULTS_COLLECTION),
         orderBy('score', 'desc'),
-        orderBy('timeTaken', 'asc'),
-        limit(30)
+        limit(200)
       );
 
-      const path = 'results';
+      const path = RESULTS_COLLECTION;
       const unsubscribe = onSnapshot(q, (snapshot) => {
         const data = snapshot.docs.map(doc => doc.data() as QuizResult);
-        setResults(data);
+        // Filter by selected quiz
+        const filtered = data.filter(item => {
+          if (activeTab === 'krishna') {
+            return item.quizId === CURRENT_QUIZ_ID;
+          } else {
+            return item.quizId !== CURRENT_QUIZ_ID;
+          }
+        });
+
+        // Sort in-memory: highest score first, ties broken by least time taken
+        filtered.sort((a, b) => (b.score - a.score) || (a.timeTaken - b.timeTaken));
+        setResults(filtered.slice(0, 30));
       }, (error) => {
         handleFirestoreError(error, OperationType.GET, path);
       });
 
       return () => unsubscribe();
     }
-  }, [isAdmin]);
+  }, [isAdmin, activeTab]);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simple password protection as requested
     if (password === '108') {
       setIsAdmin(true);
       setError('');
@@ -87,13 +98,42 @@ export const LeaderboardPage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center min-h-[80vh] px-4 py-8">
-      <div className="w-full max-w-4xl flex justify-between items-center mb-8">
-        <h2 className="text-4xl font-bold text-geeta-gold">Gita Quiz Leaderboard</h2>
+      <div className="w-full max-w-4xl flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+        <div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-geeta-gold">
+            {activeTab === 'krishna' ? 'Shri Krishan Janamotsav Leaderboard' : 'Gita Quiz Leaderboard'}
+          </h2>
+          <p className="text-xs text-gray-400 mt-1">Top 30 participants ranked by score and completion speed</p>
+        </div>
         <button
           onClick={() => navigate('/')}
-          className="px-4 py-2 bg-white/10 rounded-lg flex items-center gap-2 hover:bg-white/20 transition-all"
+          className="px-4 py-2 bg-white/10 rounded-lg flex items-center gap-2 hover:bg-white/20 transition-all text-sm font-medium"
         >
           <ArrowLeft size={18} /> Home
+        </button>
+      </div>
+
+      {/* Quiz Selector Toggle */}
+      <div className="w-full max-w-4xl mb-6 flex flex-wrap gap-2">
+        <button
+          onClick={() => setActiveTab('krishna')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all border ${
+            activeTab === 'krishna'
+              ? 'bg-geeta-gold text-black border-geeta-gold shadow-md shadow-geeta-gold/20'
+              : 'bg-white/5 text-gray-300 border-white/10 hover:bg-white/10 hover:text-white'
+          }`}
+        >
+          <Sparkles size={16} /> Shri Krishan Janamotsav (Active)
+        </button>
+        <button
+          onClick={() => setActiveTab('legacy')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all border ${
+            activeTab === 'legacy'
+              ? 'bg-geeta-gold text-black border-geeta-gold shadow-md shadow-geeta-gold/20'
+              : 'bg-white/5 text-gray-300 border-white/10 hover:bg-white/10 hover:text-white'
+          }`}
+        >
+          <History size={16} /> Previous Gita Quiz
         </button>
       </div>
 
@@ -114,7 +154,7 @@ export const LeaderboardPage: React.FC = () => {
                 <motion.tr
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05 }}
+                  transition={{ delay: index * 0.03 }}
                   key={index}
                   className="border-b border-white/5 hover:bg-white/5 transition-colors"
                 >
@@ -131,10 +171,22 @@ export const LeaderboardPage: React.FC = () => {
                   <td className="p-4">
                     <div>
                       <p className="font-bold">{result.name}</p>
-                      <p className="text-xs text-gray-400">{result.course} - {result.branch}</p>
+                      {result.course === 'General' || result.branch === 'General Audience' ? (
+                        <span className="inline-block mt-0.5 text-[11px] font-medium text-geeta-gold bg-geeta-gold/10 px-2 py-0.5 rounded border border-geeta-gold/30">
+                          General Audience
+                        </span>
+                      ) : (
+                        <p className="text-xs text-gray-400">{result.course} - {result.branch}</p>
+                      )}
                     </div>
                   </td>
-                  <td className="p-4 text-gray-300">{result.rollNumber}</td>
+                  <td className="p-4 text-gray-300">
+                    {result.rollNumber.startsWith('GEN-') ? (
+                      <span className="text-xs text-gray-400 italic">Guest</span>
+                    ) : (
+                      result.rollNumber
+                    )}
+                  </td>
                   <td className="p-4">
                     <span className="bg-geeta-gold/20 text-geeta-gold px-3 py-1 rounded-full font-bold">
                       {result.score} / {result.totalQuestions}
@@ -146,7 +198,7 @@ export const LeaderboardPage: React.FC = () => {
               {results.length === 0 && (
                 <tr>
                   <td colSpan={5} className="p-12 text-center text-gray-400 italic">
-                    No results recorded yet.
+                    No results recorded yet in this quiz collection.
                   </td>
                 </tr>
               )}

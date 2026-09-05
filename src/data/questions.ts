@@ -4403,7 +4403,21 @@ export const quizArray: QuizQuestion[] = [
     }
 ];
 
-export const getRandomQuestions = (count: number) => {
-  const shuffled = [...quizArray].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
+function shuffle<T>(array: T[]): T[] {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+export const getRandomQuestions = (count: number): QuizQuestion[] => {
+  const shuffledQuestions = shuffle(quizArray);
+  const selected = shuffledQuestions.slice(0, count);
+
+  return selected.map(q => ({
+    ...q,
+    options: shuffle(q.options)
+  }));
 };
